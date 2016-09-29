@@ -94,3 +94,56 @@ export function unprint(dispatch) {
   })
 
 }
+
+export function loadMaterial(dispatch) {
+  dispatch({
+    type: 'LOAD_MATERIAL',
+    status: 'loading',
+    operationStatus: 'pending'
+  })
+  let settings = {
+    command: 'G1 E100'
+  }
+
+  axios.post('printer/command', settings).then(resp => {
+    console.log(resp);
+    dispatch({
+      type: 'LOAD_MATERIAL',
+      status: 'loading',
+      operationStatus: 'completed'
+    })
+  }).catch(err => {
+    dispatch({
+      type: 'LOAD_MATERIAL',
+      status: 'loading',
+      error: err.message,
+      operationStatus: 'completed'
+    })
+  })
+
+}
+export function unloadMaterial(dispatch) {
+  dispatch({
+    type: 'UNLOAD_MATERIAL',
+    status: 'unloading',
+    operationStatus: 'pending'
+  })
+  let settings = {
+    command: 'G1 E-550 F1200'
+  }
+  axios.post('printer/command', settings).then(resp => {
+    console.log(resp);
+    dispatch({
+      type: 'UNLOAD_MATERIAL',
+      status: 'unloading',
+      operationStatus: 'completed'
+    })
+  }).catch(err => {
+    dispatch({
+      type: 'UNLOAD_MATERIAL',
+      status: 'unloading',
+      error: err.message,
+      operationStatus: 'completed'
+    })
+  })
+}

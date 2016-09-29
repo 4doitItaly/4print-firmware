@@ -12,7 +12,7 @@ var ViewModel = React.createClass({
 
       return (
          <div className="view-model">
-            <div className="topbar row">
+            <div className="topbar-model row">
                <div className="return-button col-xs-1">
                   <button className="return" onClick={this._handleClickReturn}>{'<'}</button>
                </div>

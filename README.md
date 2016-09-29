@@ -1,2 +1,2 @@
 # CercaStl
-Progetto per il software di interfaccia per la stampante 4doit
+The interface of the 4print printer by 4doit
