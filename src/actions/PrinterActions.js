@@ -105,7 +105,9 @@ export function loadMaterial(dispatch) {
   let settings = {
     commands: [
       'M104 S210.000000',
-      'G1 E100',
+      'M109 S210.000000',
+      "G91",
+      'G1 E40 F300',
       'M104 S0.000000'
     ]
   }
@@ -136,7 +138,9 @@ export function unloadMaterial(dispatch) {
   let settings = {
     commands: [
       'M104 S210.000000',
-      'G1 E-550 F1200',
+      'M109 S210.000000',
+      "G91", 
+      'G1 E-40 F300',
       'M104 S0.000000'
     ]
   }
