@@ -19,15 +19,11 @@ var Keyboard = React.createClass({
           return (
             <div key={key} className="button big" onClick={() => {
               this._handleHover(key)
-            }} onMouseEnter={() => {
-              this._handleHover(key)
             }}>{key.slice(2).toUpperCase()}</div>
           )
         }
         return (
           <div key={key} className="button" onClick={() => {
-            this._handleHover(key)
-          }} onMouseEnter={() => {
             this._handleHover(key)
           }}>{key.toUpperCase()}</div>
         )
@@ -47,12 +43,8 @@ var Keyboard = React.createClass({
         <div className="row">
           <div className="spacebar" onClick={() => {
             this._handleHover('@@spacebar')
-          }} onMouseEnter={() => {
-            this._handleHover('@@spacebar')
           }}>{'SPAZIO'}</div>
           <div className="delete" onClick={() => {
-            this._handleHover('@@delete')
-          }} onMouseEnter={() => {
             this._handleHover('@@delete')
           }}>{'CANCELLA'}</div>
         </div>
