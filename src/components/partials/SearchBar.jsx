@@ -10,10 +10,17 @@ var SearchBar = React.createClass({
       this.props.onSearch(str)
     }
   },
+  _handleEnter(){
+    this.props.onClick()
+  },
+  _handleLeave(){
+    this.props.onUnclick()
+  },
   render() {
     return (
       <div className="searchbar-container">
-        <input className="text-search" type="text" placeholder="Cerca i modelli" onKeyUp={this._handleSearch}/>
+        <input className="text-search" type="text" placeholder="Cerca i modelli" onMouseEnter={this._handleEnter}
+        onMouseLeave={this._handleLeave} onChange={this._handleSearch} value={this.props.text}/>
       </div>
     )
   }
