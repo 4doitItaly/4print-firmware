@@ -1,0 +1,60 @@
+.keyboard {
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  background-color: #e6e6e6;
+  // position: absolute;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  z-index: 999999;
+
+  .row {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+
+    .button,
+    .spacebar ,
+    .delete{
+      background-color: white;
+      height: 70px;
+      margin: 5px;
+      border: 1px solid #cacaca;
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      box-shadow: rgba(0, 0, 0, 0.117647) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;
+    }
+
+    .button {
+      width: 70px;
+    }
+
+    .spacebar {
+      flex-grow: 5;
+    }
+
+    .delete {
+      flex-grow: 1;
+    }
+
+    .big {
+      flex-grow: 1;
+    }
+
+    .button:hover,
+    .spacebar:hover,
+    .delete:hover {
+      cursor: pointer;
+    }
+
+    .button:active,
+    .spacebar:active,
+    .delete:active {
+      background-color: gray;
+    }
+  }
+}
