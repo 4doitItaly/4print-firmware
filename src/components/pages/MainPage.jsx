@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 
 import {connect} from 'react-redux';
 
-// import Keyboard from 'react-material-ui-keyboard'
-
 import Search from './Search'
 import ViewModel from './ViewModel'
 import InfoPage from './InfoPage'
@@ -56,17 +54,16 @@ var MainPage = React.createClass({
           this.props.onUnloadMaterial()
         }
         break
-      default:
-
+      case 'axes':
+        if (option.command === 'home') {
+          this.props.onAutoHome()
+        }
+        break
     }
-  },
-  _handleClickKeyboard(value){
-    console.log(value);
   },
   render() {
     console.log('+++++++++ STATE +++++++++');
     console.log(this.props);
-    // console.log(Keyboard);
     let page = (
       <div>
         <Search onSearch={this._handleSearchChange} onModelClick={this._handleModelClick} results={this.props.results}/>
@@ -78,7 +75,6 @@ var MainPage = React.createClass({
           <InfoPage message={'Connessione alla stampante in corso'}/>
         </div>
       )
-
     } else if (this.props.printerStatus === 'disconnected') {
       let buttons = [
         {
@@ -141,7 +137,9 @@ function mapDispatchToProps(dispatch) {
     onUnprint: () => PrinterActions.unprint(dispatch),
     onPrint: (gcode) => PrinterActions.print(gcode, dispatch),
     onLoadMaterial: () => PrinterActions.loadMaterial(dispatch),
-    onUnloadMaterial: () => PrinterActions.unloadMaterial(dispatch)
+    onUnloadMaterial: () => PrinterActions.unloadMaterial(dispatch),
+    onAutoHome: () => PrinterActions.autoHome(dispatch)
+    
   };
 }
 

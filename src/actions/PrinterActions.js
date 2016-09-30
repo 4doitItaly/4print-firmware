@@ -29,6 +29,7 @@ export function connect(dispatch) {
       operationStatus: 'completed'
     })
   }).catch(err => {
+    console.log(err);
     dispatch({
       type: 'CONNECT',
       status: 'disconnected',
@@ -102,7 +103,11 @@ export function loadMaterial(dispatch) {
     operationStatus: 'pending'
   })
   let settings = {
-    command: 'G1 E100'
+    commands: [
+      'M104 S210.000000',
+      'G1 E100',
+      'M104 S0.000000'
+    ]
   }
 
   axios.post('printer/command', settings).then(resp => {
@@ -129,7 +134,11 @@ export function unloadMaterial(dispatch) {
     operationStatus: 'pending'
   })
   let settings = {
-    command: 'G1 E-550 F1200'
+    commands: [
+      'M104 S210.000000',
+      'G1 E-550 F1200',
+      'M104 S0.000000'
+    ]
   }
   axios.post('printer/command', settings).then(resp => {
     console.log(resp);
@@ -142,6 +151,33 @@ export function unloadMaterial(dispatch) {
     dispatch({
       type: 'UNLOAD_MATERIAL',
       status: 'unloading',
+      error: err.message,
+      operationStatus: 'completed'
+    })
+  })
+}
+
+export function autoHome(dispatch){
+  dispatch({
+    type: 'AXES_HOME',
+    status: 'moving',
+    operationStatus: 'pending'
+  })
+  let settings = {
+    command: 'home',
+    axes: ['x', 'y', 'z']
+  }
+  axios.post('printer/printhead', settings).then(resp => {
+    console.log(resp);
+    dispatch({
+      type: 'AXES_HOME',
+      status: 'moving',
+      operationStatus: 'completed'
+    })
+  }).catch(err => {
+    dispatch({
+      type: 'AXES_HOME',
+      status: 'moving',
       error: err.message,
       operationStatus: 'completed'
     })

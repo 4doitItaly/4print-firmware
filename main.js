@@ -23,12 +23,12 @@ function createWindow() {
 
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/index.html`)
-  mainWindow.setMenu(null)
+  // mainWindow.setMenu(null)
     // Open the DevTools.
   mainWindow.webContents.openDevTools()
-  mainWindow.webContents.enableDeviceEmulation({
-    screenPosition: 'mobile'
-  })
+  // mainWindow.webContents.enableDeviceEmulation({
+  //   screenPosition: 'mobile'
+  // })
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
