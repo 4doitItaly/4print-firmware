@@ -2,7 +2,7 @@ import React from 'react'
 import {minimalLayout} from '../KeyboardLayouts'
 
 var Keyboard = React.createClass({
-  _handleHover(key){
+  _handleHover(key) {
     // console.log(event);
     // let str = event.target.value
     this.props.onKeyClick(key)
@@ -17,11 +17,19 @@ var Keyboard = React.createClass({
       let keys = row.map((key) => {
         if (key.indexOf('@@') != -1) {
           return (
-            <div key={key} className="button big" onMouseEnter={() => {this._handleHover(key)}}>{key.slice(2).toUpperCase()}</div>
+            <div key={key} className="button big" onClick={() => {
+              this._handleHover(key)
+            }} onMouseEnter={() => {
+              this._handleHover(key)
+            }}>{key.slice(2).toUpperCase()}</div>
           )
         }
         return (
-          <div key={key} className="button" onMouseEnter={() => {this._handleHover(key)}}>{key.toUpperCase()}</div>
+          <div key={key} className="button" onClick={() => {
+            this._handleHover(key)
+          }} onMouseEnter={() => {
+            this._handleHover(key)
+          }}>{key.toUpperCase()}</div>
         )
       })
       return (
@@ -37,8 +45,16 @@ var Keyboard = React.createClass({
       <div className="keyboard">
         {kb}
         <div className="row">
-          <div className="spacebar" onMouseEnter={() => {this._handleHover('@@spacebar')}}>{'SPAZIO'}</div>
-          <div className="delete" onMouseEnter={() => {this._handleHover('@@delete')}}>{'CANCELLA'}</div>
+          <div className="spacebar" onClick={() => {
+            this._handleHover('@@spacebar')
+          }} onMouseEnter={() => {
+            this._handleHover('@@spacebar')
+          }}>{'SPAZIO'}</div>
+          <div className="delete" onClick={() => {
+            this._handleHover('@@delete')
+          }} onMouseEnter={() => {
+            this._handleHover('@@delete')
+          }}>{'CANCELLA'}</div>
         </div>
       </div>
     )
