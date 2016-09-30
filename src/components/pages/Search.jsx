@@ -36,7 +36,7 @@ var Search = React.createClass({
     this.props.onSearch(str)
   },
   removeKeyboard() {
-    this.setState({keyboard: false})
+    // this.setState({keyboard: false})
   },
   render() {
     return (
