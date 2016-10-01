@@ -11,13 +11,13 @@ var InfoPage = React.createClass({
     console.log(buttons);
     return (
       <div className="info-page">
-        <span>
+        <h3>
           {this.props.message}
-        </span>
-        <span>
+        </h3>
+        <h4>
           {this.props.info}
-        </span>
-        <div>
+        </h4>
+        <div className="buttons">
           {buttons}
         </div>
       </div>
