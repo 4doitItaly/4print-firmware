@@ -11,6 +11,7 @@ import TopBar from '../partials/TopBar'
 
 import * as SearchActions from '../../actions/SearchActions'
 import * as PrinterActions from '../../actions/PrinterActions'
+import * as UpdaterActions from '../../actions/UpdaterActions'
 
 let pages = {
   SEARCH: 0,
@@ -59,11 +60,17 @@ var MainPage = React.createClass({
           this.props.onAutoHome()
         }
         break
+      case 'update':
+        if (option.command === 'update') {
+          this.props.onUpdate()
+        }
+        break;
     }
   },
   render() {
     console.log('+++++++++ STATE +++++++++');
     console.log(this.props);
+    console.log(this.props.updateStatus);
     let page = (
       <div>
         <Search onSearch={this._handleSearchChange} onModelClick={this._handleModelClick} results={this.props.results}/>
@@ -74,8 +81,8 @@ var MainPage = React.createClass({
         <div>
           <InfoPage message={'Connessione alla stampante in corso'}/>
         </div>
-      )
-    } else if (this.props.printerStatus === 'disconnected') {
+          )
+    }/* else if (this.props.printerStatus === 'disconnected') {
       let buttons = [
         {
           message: 'Riprova',
@@ -85,6 +92,12 @@ var MainPage = React.createClass({
       page = (
         <div>
           <InfoPage message={'Impossibile connettersi alla stampante'} info={this.props.error} buttons={buttons}/>
+        </div>
+      )
+    }*/ else if (this.props.updateStatus === 'update' && this.props.updateOperationStatus === 'pending') {
+      page = (
+        <div>
+          <InfoPage message={'Update della stampante in corso. Al termine dell\'operazione spegnere e riaccendere la stampante per vedere apportate le modifiche'} info={this.props.error} />
         </div>
       )
 
@@ -127,7 +140,14 @@ var MainPage = React.createClass({
 })
 
 function mapStateToProps(state) {
-  return {results: state.search.results, printerStatus: state.printer.status, operationStatus: state.printer.operationStatus, error: state.printer.error}
+  return {
+    results: state.search.results,
+    printerStatus: state.printer.status,
+    operationStatus: state.printer.operationStatus,
+    error: state.printer.error,
+    updateStatus: state.updater.status,
+    updateOperationStatus: state.updater.operationStatus
+  }
 }
 
 function mapDispatchToProps(dispatch) {
@@ -138,8 +158,8 @@ function mapDispatchToProps(dispatch) {
     onPrint: (gcode) => PrinterActions.print(gcode, dispatch),
     onLoadMaterial: () => PrinterActions.loadMaterial(dispatch),
     onUnloadMaterial: () => PrinterActions.unloadMaterial(dispatch),
-    onAutoHome: () => PrinterActions.autoHome(dispatch)
-    
+    onAutoHome: () => PrinterActions.autoHome(dispatch),
+    onUpdate: () => UpdaterActions.update(dispatch)
   };
 }
 

@@ -1,10 +1,10 @@
 'use strict'
 
 const electron = require('electron')
-  // Module to control application life.
+// Module to control application life.
 const app = electron.app
 const globalShortcut = electron.globalShortcut
-  // Module to create native browser window.
+// Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -14,18 +14,17 @@ let mainWindow
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 800, height: 600,
     // kiosk: true
-      // frame: false,
-      // fullscreen: true
+    // frame: false,
+    // fullscreen: true
   })
 
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/index.html`)
   // mainWindow.setMenu(null)
-    // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  // Open the DevTools.
+  // mainWindow.webContents.openDevTools()
   // mainWindow.webContents.enableDeviceEmulation({
   //   screenPosition: 'mobile'
   // })

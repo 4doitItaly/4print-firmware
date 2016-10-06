@@ -7,20 +7,20 @@ var TopBar = React.createClass({
   componentDidMount() {
     this.time()
   },
-  time() {
-    setTimeout(() => {
-      var timeInMss = Date.now()
-      this.setState({time: timeInMss})
-      this.time()
-    }, 1000)
-  },
-  beautifyTime(millis) {
-    let seconds = Math.floor((millis / 1000) % 60)
-    let minute = Math.floor((millis / (1000 * 60)) % 60)
-    let hour = Math.floor((millis / (1000 * 60 * 60)) % 24) + 2
-
-    return `${hour}:${minute}`
-  },
+  // time() {
+  //   setTimeout(() => {
+  //     var timeInMss = Date.now()
+  //     this.setState({time: timeInMss})
+  //     this.time()
+  //   }, 1000)
+  // },
+  // beautifyTime(millis) {
+  //   let seconds = Math.floor((millis / 1000) % 60)
+  //   let minute = Math.floor((millis / (1000 * 60)) % 60)
+  //   let hour = Math.floor((millis / (1000 * 60 * 60)) % 24) + 2
+  //
+  //   return `${hour}:${minute}`
+  // },
   _handleClickOptions(options) {
     this.props.onClickOptions(options)
   },
@@ -34,7 +34,8 @@ var TopBar = React.createClass({
           <img src="res/logo.png" onClick={this._handleClickLogo}></img>
         </div>
         <div>
-          {this.beautifyTime(this.state.time)}
+          {/* {this.beautifyTime(this.state.time)} */}
+          {'4PRINT'}
         </div>
         <div className="options">
           <span onClick={this._handleClickOptions}>{'Opzioni'}</span>

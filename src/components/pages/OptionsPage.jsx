@@ -10,6 +10,9 @@ var OptionsPage = React.createClass({
   _handleClickHome() {
     this.props.onChangedOption({context: 'axes', command: 'home'})
   },
+  _handleClickUpdate(){
+    this.props.onChangedOption({context: 'update', command: 'update'})    
+  },
   render() {
     return (
       <div className="options-page">
@@ -25,6 +28,12 @@ var OptionsPage = React.createClass({
         </h3>
         <div className="buttons">
           <button onClick={this._handleClickHome}>{'Home'}</button>
+        </div>
+        <h3 className="opts">
+          {'Aggiornamento'}
+        </h3>
+        <div className="buttons">
+          <button onClick={this._handleClickUpdate}>{'Aggiorna'}</button>
         </div>
       </div>
     )

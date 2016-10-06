@@ -107,7 +107,7 @@ export function loadMaterial(dispatch) {
       'M104 S210.000000',
       'M109 S210.000000',
       "G91",
-      'G1 E40 F300',
+      'G1 E100 F300',
       'M104 S0.000000'
     ]
   }
@@ -139,8 +139,8 @@ export function unloadMaterial(dispatch) {
     commands: [
       'M104 S210.000000',
       'M109 S210.000000',
-      "G91", 
-      'G1 E-40 F300',
+      "G91",
+      'G1 E-100 F300',
       'M104 S0.000000'
     ]
   }
