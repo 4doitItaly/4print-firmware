@@ -17,10 +17,10 @@
     "host": "http://4doit.it",
     "port": "80",
     "apiUrl": "4print/api.php/",
-    "installFolder": "/home/luca/Progetti",
+    "installFolder": "/home/luca/",
     "tempFolder": "/home/luca/temp",
     "folderName": "CercaStl",
     "filename": "cerca-stl",
-  "filenameExt": "zip"
+    "filenameExt": "zip"
   }
 }

@@ -4,6 +4,7 @@
   "description": "The interface of the 4print printer by 4doit",
   "main": "main.js",
   "scripts": {
+    "build": "electron-packager ./ cerca-stl --platform=linux --arch=armv7l --overwrite",
     "test": ""
   },
   "repository": {

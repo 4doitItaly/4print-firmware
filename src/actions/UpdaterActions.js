@@ -13,12 +13,14 @@ export function update(dispatch) {
     operationStatus: 'pending'
   })
   axios.get('update').then(resp => {
+    console.log(`${version} -> ${resp.data.version}`);
     if(compareSWVersion(version, resp.data.version) < 0){
       // installUpdate()
-
       downloadUpdate(() => {
         console.log('downloadComplete');
-        installUpdate()
+        installUpdate(() => {
+          console.log('finito tutto');
+        })
         dispatch({
           type: 'UPDATE',
           status: 'update',

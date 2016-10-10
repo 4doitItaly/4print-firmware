@@ -82,7 +82,13 @@ var MainPage = React.createClass({
           <InfoPage message={'Connessione alla stampante in corso'}/>
         </div>
           )
-    }/* else if (this.props.printerStatus === 'disconnected') {
+    } else if (this.state.page === pages.OPTIONS) {
+      page = (
+        <div>
+          <OptionsPage onChangedOption={this._handleChangedOption}/>
+        </div>
+      )
+    } else if (this.props.printerStatus === 'disconnected') {
       let buttons = [
         {
           message: 'Riprova',
@@ -94,7 +100,7 @@ var MainPage = React.createClass({
           <InfoPage message={'Impossibile connettersi alla stampante'} info={this.props.error} buttons={buttons}/>
         </div>
       )
-    }*/ else if (this.props.updateStatus === 'update' && this.props.updateOperationStatus === 'pending') {
+    } else if (this.props.updateStatus === 'update' && this.props.updateOperationStatus === 'pending') {
       page = (
         <div>
           <InfoPage message={'Update della stampante in corso. Al termine dell\'operazione spegnere e riaccendere la stampante per vedere apportate le modifiche'} info={this.props.error} />
@@ -117,12 +123,6 @@ var MainPage = React.createClass({
       page = (
         <div>
           <ViewModel model={this.state.currentModel} onReturn={this._handleReturn} onPrint={this._handleClickPrint}/>
-        </div>
-      )
-    } else if (this.state.page === pages.OPTIONS) {
-      page = (
-        <div>
-          <OptionsPage onChangedOption={this._handleChangedOption}/>
         </div>
       )
     }
