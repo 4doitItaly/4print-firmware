@@ -45,8 +45,8 @@ var Keyboard = React.createClass({
             this._handleHover('@@spacebar')
           }}>{'SPAZIO'}</div>
           <div className="delete" onClick={() => {
-            this._handleHover('@@delete')
-          }}>{'CANCELLA'}</div>
+            this._handleHover('@@enter')
+          }}>{'INVIO'}</div>
         </div>
       </div>
     )

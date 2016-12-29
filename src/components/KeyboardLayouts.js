@@ -30,6 +30,6 @@ export const minimalLayout = [
     'b',
     'n',
     'm',
-    '@@enter'
+    '@@delete'
   ]
 ]

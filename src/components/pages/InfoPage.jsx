@@ -8,7 +8,6 @@ var InfoPage = React.createClass({
         return <button onClick={btn.action} key={index}>{btn.message}</button>
       })
     }
-    console.log(buttons);
     return (
       <div className="info-page">
         <h3>

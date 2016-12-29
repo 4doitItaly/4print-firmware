@@ -6,7 +6,7 @@ export function searchFile(term, dispatch) {
          return result.name.toLowerCase().indexOf(term.toLowerCase()) !== -1
 
       })
-      // console.log(searchResult);
+      console.log(searchResult);
       dispatch({
          type: 'SEARCH',
          results: searchResult

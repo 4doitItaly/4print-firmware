@@ -44,3 +44,4 @@ cerca-stl
 
 # compiled folder
 dist
+distributable/cerca-stl*

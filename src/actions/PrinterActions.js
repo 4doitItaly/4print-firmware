@@ -7,183 +7,86 @@ let axios = require('axios').create({
   }
 })
 
-
+let connectionSettings = {
+  "command": "connect",
+  "port": `${config.printer.usbPort}`,
+  "baudrate": parseInt(config.printer.baudrate),
+  "printerProfile": "_default",
+  "autoconnect": false
+}
 export function connect(dispatch) {
-  let connectionSettings = {
-    "command": "connect",
-    "port": `${config.printer.usbPort}`,
-    "baudrate": config.printer.baudrate,
-    "printerProfile": "_default",
-    "autoconnect": false
-  }
-  dispatch({
-    type: 'CONNECT',
-    status: 'disconnected',
-    operationStatus: 'pending'
-  })
+  dispatch({type: 'CONNECT', connectionStatus: 'disconnected', currentOperationStatus: 'pending', currentOperation: 'connection'})
   axios.post('connection', connectionSettings).then(resp => {
-    console.log(resp);
-    dispatch({
-      type: 'CONNECT',
-      status: 'connected',
-      operationStatus: 'completed'
-    })
+    dispatch({type: 'CONNECT', connectionStatus: 'connected', currentOperationStatus: 'complete', currentOperation: 'connection'})
   }).catch(err => {
-    console.log(err);
-    dispatch({
-      type: 'CONNECT',
-      status: 'disconnected',
-      error: err.message,
-      operationStatus: 'completed'
-    })
+    dispatch({type: 'CONNECT', connectionStatus: 'disconnected', error: err.message, currentOperationStatus: 'complete', currentOperation: 'connection'})
   })
 
 }
 
-
 export function print(model, dispatch) {
-  dispatch({
-    type: 'PRINT',
-    model: model,
-    status: 'printing',
-    operationStatus: 'pending'
-  })
+  dispatch({type: 'PRINT', currentPrint: model, currentOperation: 'printing', currentOperationStatus: 'pending'})
   axios.post(`files/local/${model}`, {
     command: 'select',
     print: true
   }).then(data => {
-    dispatch({
-      type: 'PRINT',
-      model: model,
-      status: 'printing',
-      operationStatus: 'complete'
-    })
+    dispatch({type: 'PRINT', currentPrint: model, currentOperation: 'printing', currentOperationStatus: 'complete'})
   }).catch(err => {
-    dispatch({
-      type: 'PRINT',
-      model: model,
-      error: err,
-      status: 'printing',
-      operationStatus: 'complete'
-    })
+    dispatch({type: 'PRINT', currentPrint: model, error: err, currentOperation: 'idle', currentOperationStatus: 'complete'})
   })
 }
 
 export function unprint(dispatch) {
-  dispatch({
-    type: 'UNPRINT',
-    status: 'unprint',
-    operationStatus: 'pending'
-  })
+  dispatch({type: 'UNPRINT', currentOperation: 'unprint', currentOperationStatus: 'pending'})
   let settings = {
     command: 'cancel'
   }
   axios.post('job', settings).then(resp => {
     console.log(resp);
-    dispatch({
-      type: 'UNPRINT',
-      status: 'unprint',
-      operationStatus: 'completed'
-    })
+    dispatch({type: 'UNPRINT', currentOperation: 'unprint', currentOperationStatus: 'complete'})
   }).catch(err => {
-    dispatch({
-      type: 'UNPRINT',
-      status: 'unprint',
-      error: err.message,
-      operationStatus: 'completed'
-    })
+    dispatch({type: 'UNPRINT', currentOperation: 'idle', error: err.message, currentOperationStatus: 'complete'})
   })
 
 }
 
 export function loadMaterial(dispatch) {
-  dispatch({
-    type: 'LOAD_MATERIAL',
-    status: 'loading',
-    operationStatus: 'pending'
-  })
+  dispatch({type: 'LOAD_MATERIAL', currentOperation: 'loading_material', currentOperationStatus: 'pending'})
   let settings = {
-    commands: [
-      'M104 S210.000000',
-      'M109 S210.000000',
-      "G91",
-      'G1 E100 F300',
-      'M104 S0.000000'
-    ]
+    commands: ['M104 S210.000000', 'M109 S210.000000', "G91", 'G1 E100 F300', 'M104 S0.000000']
   }
 
   axios.post('printer/command', settings).then(resp => {
     console.log(resp);
-    dispatch({
-      type: 'LOAD_MATERIAL',
-      status: 'loading',
-      operationStatus: 'completed'
-    })
+    dispatch({type: 'LOAD_MATERIAL', currentOperation: 'loading_material', currentOperationStatus: 'complete'})
   }).catch(err => {
-    dispatch({
-      type: 'LOAD_MATERIAL',
-      status: 'loading',
-      error: err.message,
-      operationStatus: 'completed'
-    })
+    dispatch({type: 'LOAD_MATERIAL', currentOperation: 'loading_material', error: err.message, currentOperationStatus: 'complete'})
   })
 
 }
 export function unloadMaterial(dispatch) {
-  dispatch({
-    type: 'UNLOAD_MATERIAL',
-    status: 'unloading',
-    operationStatus: 'pending'
-  })
+  dispatch({type: 'UNLOAD_MATERIAL', currentOperation: 'unloading_material', currentOperationStatus: 'pending'})
   let settings = {
-    commands: [
-      'M104 S210.000000',
-      'M109 S210.000000',
-      "G91",
-      'G1 E-100 F300',
-      'M104 S0.000000'
-    ]
+    commands: ['M104 S210.000000', 'M109 S210.000000', "G91", 'G1 E-100 F300', 'M104 S0.000000']
   }
   axios.post('printer/command', settings).then(resp => {
     console.log(resp);
-    dispatch({
-      type: 'UNLOAD_MATERIAL',
-      status: 'unloading',
-      operationStatus: 'completed'
-    })
+    dispatch({type: 'UNLOAD_MATERIAL', currentOperation: 'unloading_material', currentOperationStatus: 'complete'})
   }).catch(err => {
-    dispatch({
-      type: 'UNLOAD_MATERIAL',
-      status: 'unloading',
-      error: err.message,
-      operationStatus: 'completed'
-    })
+    dispatch({type: 'UNLOAD_MATERIAL', currentOperation: 'unloading_material', error: err.message, currentOperationStatus: 'complete'})
   })
 }
 
-export function autoHome(dispatch){
-  dispatch({
-    type: 'AXES_HOME',
-    status: 'moving',
-    operationStatus: 'pending'
-  })
+export function autoHome(dispatch) {
+  dispatch({type: 'AXES_HOME', currentOperation: 'autohome', currentOperationStatus: 'pending'})
   let settings = {
     command: 'home',
     axes: ['x', 'y', 'z']
   }
   axios.post('printer/printhead', settings).then(resp => {
     console.log(resp);
-    dispatch({
-      type: 'AXES_HOME',
-      status: 'moving',
-      operationStatus: 'completed'
-    })
+    dispatch({type: 'AXES_HOME', currentOperation: 'autohome', currentOperationStatus: 'complete'})
   }).catch(err => {
-    dispatch({
-      type: 'AXES_HOME',
-      status: 'moving',
-      error: err.message,
-      operationStatus: 'completed'
-    })
+    dispatch({type: 'AXES_HOME', currentOperation: 'autohome', error: err.message, currentOperationStatus: 'complete'})
   })
 }

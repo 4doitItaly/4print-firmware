@@ -1,11 +1,10 @@
 {
   "folders": {
-    "stl": "/home/luca/Progetti/CercaStl/4doit/stl",
-    "img": "/home/luca/Progetti/CercaStl/4doit/img",
-    "gcode": "/home/luca/Progetti/CercaStl/4doit/gcode",
+    "stl": "/home/pi/.octoprint/uploads",
+    "img": "/home/pi/.octoprint/img",
+    "gcode": "/home/pi/.octoprint/uploads",
     "resources": "/home/luca/Progetti/CercaStl/res"
   },
-  "environment": "development",
   "printer": {
     "host": "http://4print",
     "port": "80",
@@ -18,10 +17,10 @@
     "host": "http://4doit.it",
     "port": "80",
     "apiUrl": "4print/api.php/",
-    "installFolder": "/home/luca/CercaStl",
+    "installFolder": "/home/luca/",
     "tempFolder": "/home/luca/temp",
     "folderName": "CercaStl",
-    "filename": "4print-firmware-latest",
+    "filename": "cerca-stl",
     "filenameExt": "zip"
   }
 }

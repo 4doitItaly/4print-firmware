@@ -11,12 +11,13 @@ export function readGcodeAndImage(cb) {
       let gcodes = []
       filenames.forEach(file => {
          let fileNoExt = file.split('.')[0]
+         let name = fileNoExt.replace('_', ' ')
          try {
             var stats = fs.statSync(config.folders.img + '/' + fileNoExt + '.png');
             let gcode = {
                gcode: file,
                img: config.folders.img + '/' + fileNoExt + '.png',
-               name: fileNoExt
+               name: name
             }
             gcodes.push(gcode)
          } catch (err) {

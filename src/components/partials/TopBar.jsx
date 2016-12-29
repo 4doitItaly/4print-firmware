@@ -5,7 +5,7 @@ var TopBar = React.createClass({
     return {time: 0}
   },
   componentDidMount() {
-    this.time()
+    // this.time()
   },
   // time() {
   //   setTimeout(() => {
@@ -33,7 +33,7 @@ var TopBar = React.createClass({
         <div className="logo">
           <img src="res/logo.png" onClick={this._handleClickLogo}></img>
         </div>
-        <div>
+        <div className="center">
           {/* {this.beautifyTime(this.state.time)} */}
           {'4PRINT'}
         </div>
