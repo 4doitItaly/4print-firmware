@@ -1,6 +1,7 @@
 var packager = require('electron-packager')
 var shell = require('shelljs');
 var fs = require('fs');
+var config = require('./config')
 
 let basePath = 'distributable'
 let configfile = 'config.json'
@@ -8,7 +9,7 @@ let newconfigPath = 'resources/app'
 
 let options = {
   dir: ".",
-  arch: "x64",
+  arch: "armv7l",
   platform: "linux",
   out: basePath,
   overwrite: true,
@@ -16,15 +17,11 @@ let options = {
 }
 
 packager(options, function done_callback(err, appPaths) {
-  console.log(appPaths);
-  console.log(`copy: ${configfile} -> ${appPaths[0]}/${newconfigPath}/${configfile}`);
-  // copy(`${basePath}/${configfile}`, `${appPaths[0]}/${newconfigPath}/${configfile}`)
-  shell.exec(`cd ${appPaths[0]} && zip -r ${__dirname}/${basePath}/cerca-stl.zip *`, () => {
-    console.log('compressed');
-    console.log(`cd ${appPaths[0]} && zip -r ${__dirname}/${basePath}/cerca-stl.zip *`);
+  console.log('Copia del file di configurazione di produzione');
+  fs.createReadStream(`${basePath}/${configfile}`).pipe(fs.createWriteStream(`${appPaths[0]}/${newconfigPath}/${configfile}`));
+  console.log('Compressione dell\'archivio in corso');
+  // console.log(`cd ${appPaths[0]} && zip -rq ${__dirname}/${basePath}/${config.updater.filename}.${config.updater.filenameExt} *`);
+  shell.exec(`cd ${appPaths[0]} && zip -rq ${__dirname}/${basePath}/${config.updater.filename}.${config.updater.filenameExt} *`, () => {
+    console.log('Archivio creato con successo');
   })
 })
-
-function copy(file, newfile) {
-  fs.createReadStream(file).pipe(fs.createWriteStream(newfile));
-}

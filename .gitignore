@@ -36,12 +36,13 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
-#old project
-cerca-stl
-
 # gcode and image files
 4doit
 
 # compiled folder
 dist
 distributable/cerca-stl*
+distributable/4print*
+
+# other files
+prove.js

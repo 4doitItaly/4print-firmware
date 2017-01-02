@@ -5,6 +5,7 @@
     "gcode": "/home/pi/.octoprint/uploads",
     "resources": "/home/luca/Progetti/CercaStl/res"
   },
+  "environment": "production",
   "printer": {
     "host": "http://4print",
     "port": "80",
@@ -20,7 +21,7 @@
     "installFolder": "/home/luca/",
     "tempFolder": "/home/luca/temp",
     "folderName": "CercaStl",
-    "filename": "cerca-stl",
+    "filename": "4print-firmware-latest",
     "filenameExt": "zip"
   }
 }
