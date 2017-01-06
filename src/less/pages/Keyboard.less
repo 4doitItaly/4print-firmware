@@ -17,8 +17,10 @@
     justify-content: space-between;
 
     .button,
-    .spacebar ,
-    .delete{
+    .delete,
+    .shift,
+    .spacebar,
+    .symbols {
       background-color: white;
       height: 85px;
       margin: 5px;
@@ -38,7 +40,9 @@
       flex-grow: 5;
     }
 
-    .delete {
+    .delete,
+    .shift,
+    .symbols {
       flex-grow: 1;
     }
 
@@ -47,14 +51,18 @@
     }
 
     .button:hover,
+    .delete:hover,
+    .shift:hover,
     .spacebar:hover,
-    .delete:hover {
+    .symbols:hover {
       cursor: pointer;
     }
 
     .button:active,
+    .delete:active,
+    .shift:active,
     .spacebar:active,
-    .delete:active {
+    .symbols:active {
       background-color: gray;
     }
   }

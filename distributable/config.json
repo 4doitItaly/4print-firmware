@@ -23,5 +23,10 @@
     "folderName": "CercaStl",
     "filename": "4print-firmware-latest",
     "filenameExt": "zip"
+  },
+  "network": {
+    "iface": "",
+    "checkfrequency": 5000,
+    "connectionTimeout": 10000
   }
 }

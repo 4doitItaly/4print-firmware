@@ -1,9 +1,9 @@
 {
   "folders": {
-    "stl": "/home/luca/Progetti/CercaStl/4doit/stl",
-    "img": "/home/luca/Progetti/CercaStl/4doit/img",
-    "gcode": "/home/luca/Progetti/CercaStl/4doit/gcode",
-    "resources": "/home/luca/Progetti/CercaStl/res"
+    "stl": "/home/luca/Progetti/4print-firmware/4doit/stl",
+    "img": "/home/luca/Progetti/4print-firmware/4doit/img",
+    "gcode": "/home/luca/Progetti/4print-firmware/4doit/gcode",
+    "resources": "/home/luca/Progetti/4print-firmware/res"
   },
   "environment": "development",
   "printer": {
@@ -18,10 +18,15 @@
     "host": "http://4doit.it",
     "port": "80",
     "apiUrl": "4print/api.php/",
-    "installFolder": "/home/luca/CercaStl",
+    "installFolder": "/home/luca/4print-firmware",
     "tempFolder": "/home/luca/temp",
-    "folderName": "CercaStl",
+    "folderName": "4print-firmware",
     "filename": "4print-firmware-latest",
     "filenameExt": "zip"
+  },
+  "network": {
+    "iface": "wlp3s0",
+    "checkfrequency": 60000,
+    "connectionTimeout": 10000
   }
 }

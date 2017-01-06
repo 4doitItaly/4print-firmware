@@ -5,22 +5,14 @@ let config = require('../../config');
 var Datastore = require('nedb'),
   db = new Datastore({filename: `${config.folders.resources}/files.db`, autoload: true})
 
-let response = [
-  {
-    "id": 8,
-    "name": "secondo",
-    "description": "mamma che culo funziona",
-    "gcodePath": "http://4doit.it/4print/upload/gcodes/secondo.png",
-    "imgPath": "http://4doit.it/4print/upload/img/secondo.png"
-  }
-  // , {
-  //   "id": 10,
-  //   "name": "terzo",
-  //   "description": "elemento di conferma",
-  //   "gcodePath": "http://4doit.it/4print/upload/gcodes/terzo.jpg",
-  //   "imgPath": "http://4doit.it/4print/upload/img/terzo.jpg"
-  // }
-]
+if (!fs.existsSync(config.folders.gcode)) {
+  console.log('creazione della cartella dei gcode');
+  fs.mkdirSync(config.folders.gcode);
+}
+if (!fs.existsSync(config.folders.img)) {
+  console.log('creazione della cartella delle immagini');
+  fs.mkdirSync(config.folders.img);
+}
 
 function isIn(element, array) {
   return array.find(item => item.id === element.id) !== undefined
@@ -40,7 +32,7 @@ function deleteFile(element) {
 }
 
 function fileFromPath(file) {
-  return file.split('/')[file.split('/').length -1]
+  return file.split('/')[file.split('/').length - 1]
 }
 
 export function updateFiles(data, on, cb) {
@@ -116,14 +108,14 @@ function downloadFiles(files, on, cb) {
     let ps = []
     down.push(new Promise((resolve, reject) => {
       download(gcode.gcodePath, gcode.name, () => {
-        on(gcode.name + '.gcode');
+        on({name: gcode.name, total: files.length * 2, type: 'gcode'});
         resolve()
       })
     }))
 
     down.push(new Promise((resolve, reject) => {
       download(gcode.imgPath, gcode.name, () => {
-        on(gcode.name + '.img');
+        on({name: gcode.name, total: files.length * 2, type: 'img'});
         resolve()
       })
     }))

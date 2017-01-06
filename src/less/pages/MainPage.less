@@ -2,28 +2,44 @@
 @import 'ViewModel.less';
 @import 'OptionsPage.less';
 @import 'InfoPage.less';
+@import 'WifiConfigPage.less';
 @import '../partials/TopBar.less';
 
-body {
-  background-color: #e6e6e6;
+html {
+  height: 100%;
+  body {
+    background-color: #e6e6e6;
+    height: 100%;
 
-  .page {
-    margin-top: 60px;
-  }
+    #app{
+      height: 100%;
+      .main-container {
+        height: 100%;
+        
+      }
+    }
 
-  button {
-    text-align: center;
-    text-decoration: none;
-    padding: 1em;
-    background-color: #e84949;
-    font-weight: bold;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    box-shadow: rgba(0, 0, 0, 0.117647) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;
-  }
-  button.disabled{
-    background-color: #dcdcdc;
-    color: black;
+    .page {
+      padding-top: 60px;
+      height: 100%;
+
+    }
+
+    button {
+      text-align: center;
+      text-decoration: none;
+      padding: 1em;
+      background-color: #e84949;
+      font-weight: bold;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      box-shadow: rgba(0, 0, 0, 0.117647) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;
+    }
+
+    button.disabled {
+      background-color: #dcdcdc;
+      color: black;
+    }
   }
 }

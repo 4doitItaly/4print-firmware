@@ -19,7 +19,7 @@ var SearchBar = React.createClass({
   render() {
     return (
       <div className="searchbar-container">
-        <input className="text-search" type="text" placeholder="Cerca i modelli"
+        <input className="text-search" type="text" placeholder={this.props.placeholder}
         onClick={this._handleEnter} onChange={this._handleSearch} value={this.props.text}/>
       </div>
     )

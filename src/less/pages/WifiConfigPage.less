@@ -1,0 +1,100 @@
+.wifi-config-page {
+  height: 100%;
+
+  .page-container {
+    overflow-y: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .title {
+      padding-top: 20px;
+      padding-bottom: 25px;
+      text-align: center;
+      font-size: 25px;
+    }
+    .password {
+      padding-top: 10px;
+      padding-bottom: 0px;
+    }
+
+    .wifi-container {
+      padding: 0 100px 10px 50px;
+      flex-grow: 1;
+
+      .network-row {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 25px;
+        font-weight: bold;
+
+        .signal {
+          border-radius: 4px;
+          padding: 5px;
+          color: white;
+          font-weight: bold;
+        }
+
+        .red {
+          background-color: #d50000;
+        }
+
+        .orange {
+          background-color: #F4511E;
+        }
+
+        .green {
+          background-color: #43A047;
+        }
+
+        .blue {
+          background-color: #0288D1;
+        }
+      }
+
+      .network-row:nth-child(odd) {
+        background-color: white;
+      }
+
+      .network-row:nth-child(odd) {
+        background-color: whitesmoke;
+      }
+
+      .network-row:first-child {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+      }
+
+      .network-row:last-child {
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+    }
+  }
+
+  .to-top {
+    height: 80px;
+    width: 80px;
+    bottom: 10px;
+    right: 10px;
+    position: absolute;
+  }
+
+  .to-bot {
+    height: 80px;
+    width: 80px;
+    bottom: 100px;
+    right: 10px;
+    position: absolute;
+  }
+
+  .refresh {
+    height: 80px;
+    width: 80px;
+    right: 10px;
+    top: 70px;
+    position: absolute;
+  }
+}

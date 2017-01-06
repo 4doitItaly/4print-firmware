@@ -21,7 +21,7 @@ var Search = React.createClass({
     let str = this.state.searchText
     switch (key) {
       case '@@enter':
-        this.setState({keyboard: false})
+        this.setState({keyboard: false});
         break
       case '@@spacebar':
         str += ' '
@@ -41,7 +41,7 @@ var Search = React.createClass({
   render() {
     return (
       <div>
-        <SearchBar text={this.state.searchText} onSearch={this._handleSearchChange} onClick={this.putKeyboard} onUnclick={this.removeKeyboard}/>
+        <SearchBar text={this.state.searchText} onSearch={this._handleSearchChange} onClick={this.putKeyboard} onUnclick={this.removeKeyboard} placeholder={'Cerca i modelli'}/>
         <Results results={this.props.results} onModelClick={this._handleModelClick}/>
         <Keyboard onKeyClick={this._handleKeyboardClick} active={this.state.keyboard}/>
       </div>

@@ -5,7 +5,12 @@ const initialState = {
   currentPrint: null,
   error: null,
   extra: {},
-  results: []
+  results: [],
+  wifiConnection: {
+    connected: false,
+    ssid: '',
+    signal_level: -1
+  }
 }
 
 export function reducer(state = initialState, action) {
@@ -20,7 +25,8 @@ export function reducer(state = initialState, action) {
         currentOperationStatus: action.currentOperationStatus,
         error: action.error || null,
         extra: {},
-        results: action.results || state.results
+        results: action.results || state.results,
+        wifiConnection: action.wifiConnection || state.wifiConnection
       }
     case 'PRINT':
       return {
@@ -29,7 +35,8 @@ export function reducer(state = initialState, action) {
         currentOperationStatus: action.currentOperationStatus,
         error: action.error || null,
         extra: {},
-        results: action.results || state.results
+        results: action.results || state.results,
+        wifiConnection: action.wifiConnection || state.wifiConnection
       }
     case 'UNPRINT':
       return {
@@ -38,7 +45,8 @@ export function reducer(state = initialState, action) {
         currentOperationStatus: action.currentOperationStatus,
         error: action.error || null,
         extra: {},
-        results: action.results || state.results
+        results: action.results || state.results,
+        wifiConnection: action.wifiConnection || state.wifiConnection
       }
       /*
   search reducer
@@ -50,7 +58,8 @@ export function reducer(state = initialState, action) {
         currentOperationStatus: state.currentOperationStatus,
         error: action.error || null,
         extra: {},
-        results: action.results || state.results
+        results: action.results || state.results,
+        wifiConnection: action.wifiConnection || state.wifiConnection
       }
       /*
   updater reducer
@@ -64,7 +73,8 @@ export function reducer(state = initialState, action) {
         extra: {
           downloaded: action.downloaded
         },
-        results: action.results || state.results
+        results: action.results || state.results,
+        wifiConnection: action.wifiConnection || state.wifiConnection
       }
     case 'UPDATE_FILE_DOWNLOAD':
       return {
@@ -77,7 +87,47 @@ export function reducer(state = initialState, action) {
           file: action.file,
           downloaded: action.downloaded,
           total: action.total
-        }
+        },
+        wifiConnection: action.wifiConnection || state.wifiConnection
+      }
+      /*
+      wifi scanner
+      */
+    case 'WIFI_SCAN':
+      return {
+        connectionStatus: state.connectionStatus,
+        currentOperation: action.currentOperation,
+        currentOperationStatus: action.currentOperationStatus,
+        error: action.error || null,
+        results: state.results,
+        extra: {
+          networks: action.networks || []
+        },
+        wifiConnection: action.wifiConnection || state.wifiConnection
+      }
+    case 'WIFI_CONNECT':
+      return {
+        connectionStatus: state.connectionStatus,
+        currentOperation: action.currentOperation,
+        currentOperationStatus: action.currentOperationStatus,
+        error: action.error || null,
+        results: state.results,
+        extra: {
+          networks: action.networks || []
+        },
+        wifiConnection: action.wifiConnection || state.wifiConnection
+      }
+      case 'WIFI_CHECK':
+      return {
+        connectionStatus: state.connectionStatus,
+        currentOperation: action.currentOperation,
+        currentOperationStatus: action.currentOperationStatus,
+        error: action.error || null,
+        results: state.results,
+        extra: {
+          networks: action.networks || []
+        },
+        wifiConnection: action.wifiConnection || state.wifiConnection
       }
     default:
       return state

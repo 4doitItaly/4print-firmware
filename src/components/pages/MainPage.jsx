@@ -7,19 +7,21 @@ import Search from './Search'
 import ViewModel from './ViewModel'
 import InfoPage from './InfoPage'
 import OptionsPage from './OptionsPage'
+import WifiConfigPage from './WifiConfigPage'
 import TopBar from '../partials/TopBar'
 
 import * as SearchActions from '../../actions/SearchActions'
 import * as PrinterActions from '../../actions/PrinterActions'
 import * as UpdaterActions from '../../actions/UpdaterActions'
-
+import * as NetworkActions from '../../actions/NetworkActions'
 let config = require('../../../config')
 
 let pages = {
   SEARCH: 0,
   VIEW_MODEL: 1,
   INFO_PAGE: 2,
-  OPTIONS: 3
+  OPTIONS: 3,
+  WIFI_CONFIG: 4
 }
 
 var MainPage = React.createClass({
@@ -29,6 +31,7 @@ var MainPage = React.createClass({
   componentWillMount() {
     this.props.connect()
     this.props.onSearch('')
+    setInterval(this.props.onNetworkCheck, config.network.checkfrequency)
   },
   _handleSearchChange(terms) {
     this.props.onSearch(terms)
@@ -52,6 +55,13 @@ var MainPage = React.createClass({
         : pages.OPTIONS
     })
   },
+  _handleScanNetworks() {
+    this.props.onWifiScan()
+  },
+  _handleNetworkConnect(network, password) {
+    this.props.onNetworkConnect(network, password)
+    this.setState({page: pages.SEARCH})
+  },
   _handleChangedOption(option) {
     switch (option.context) {
       case 'material':
@@ -72,7 +82,10 @@ var MainPage = React.createClass({
         } else if (option.command === 'updateGcodes') {
           this.props.onUpdateGcodes()
         }
-        break;
+        break
+      case 'network':
+        this.setState({page: pages.WIFI_CONFIG});
+        break
     }
   },
   render() {
@@ -84,7 +97,12 @@ var MainPage = React.createClass({
         <Search onSearch={this._handleSearchChange} onModelClick={this._handleModelClick} results={this.props.results}/>
       </div>
     )
-
+    console.log('=====');
+    console.log(this.props.currentOperation + ' - ' + this.props.currentOperationStatus);
+    console.log('=====');
+    if (this.props.error && this.props.currentOperation !== 'connection') {
+      page = <InfoPage message={'Errore'} info={this.props.error}/>
+    }
     /*
   stampante in connessione
 */
@@ -168,6 +186,12 @@ var MainPage = React.createClass({
       }
     } else
     /*
+    connessione wifi in corso
+    */
+    if (this.props.currentOperation === 'wifi-connection' && this.props.currentOperationStatus === 'pending') {
+      page = <InfoPage message={'Connessione al WiFi.'} info={`Connessione in corso, attendere...`}/>
+    } else
+    /*
     Pagina visualizzazione modello
     */
     if (this.state.page === pages.VIEW_MODEL) {
@@ -178,57 +202,17 @@ var MainPage = React.createClass({
     */
     if (this.state.page === pages.OPTIONS) {
       page = <OptionsPage onChangedOption={this._handleChangedOption} printerStatus={this.props.connectionStatus !== 'disconnected'}/>
+    } else
+    /*
+    pagina wifi
+    */
+    if (this.state.page === pages.WIFI_CONFIG) {
+      page = <WifiConfigPage networks={this.props.extra.networks || []} onRefresh={this._handleScanNetworks} scanStatus={this.props.currentOperationStatus === 'complete'} onNetworkConnect={this._handleNetworkConnect}/>
     }
-    //
-    //     /*
-    // ---------------------------
-    // */
-    //     if (this.props.updateStatus === 'downloading_update' && this.props.updateOperationStatus === 'pending') {
-    //       page = (
-    //         <div>
-    //           <InfoPage message={'Download dell\'aggiornamento in corso...'} info={this.props.updateError}/>
-    //         </div>
-    //       )
-    //     } else if (this.props.updateStatus === 'installing_update' && this.props.updateOperationStatus === 'pending') {
-    //       page = (
-    //         <div>
-    //           <InfoPage message={'Installazione dell\'aggiornamento in corso...'} info={this.props.updateError}/>
-    //         </div>
-    //       )
-    //     } else if (this.props.updateStatus === 'update' && this.props.updateOperationStatus === 'completed') {
-    //       page = (
-    //         <div>
-    //           <InfoPage message={'Aggiornamento della stampante completato. Spegnere e riaccendere la stampante'} info={this.props.updateError}/>
-    //         </div>
-    //       )
-    //     } else if (this.state.page === pages.OPTIONS) {
-    //       page = (
-    //         <div>
-    //           <OptionsPage onChangedOption={this._handleChangedOption} printerStatus={this.props.printerStatus !== 'disconnected'}/>
-    //         </div>
-    //       )
-    //     } else if (this.props.printerStatus === 'disconnected' && !devStatus) {
-    //       let buttons = [
-    //         {
-    //           message: 'Riprova',
-    //           action: this.props.connect
-    //         }
-    //       ]
-    //       page = (
-    //         <div>
-    //           <InfoPage message={'Impossibile connettersi alla stampante'} info={this.props.error} buttons={buttons}/>
-    //         </div>
-    //       )
-    //     } else if (this.state.page === pages.VIEW_MODEL) {
-    //       page = (
-    //         <div>
-    //           <ViewModel model={this.state.currentModel} onReturn={this._handleReturn} onPrint={this._handleClickPrint}/>
-    //         </div>
-    //       )
-    //     }
+
     return (
-      <div>
-        <TopBar onClickOptions={this._handleClickOptions} onClickLogo={this._handleClickLogo}/>
+      <div className="main-container">
+        <TopBar onClickOptions={this._handleClickOptions} onClickLogo={this._handleClickLogo} network={this.props.network}/>
         <div className="page">
           {page}
         </div>
@@ -249,7 +233,8 @@ function mapStateToProps(state) {
     currentPrint: state.currentPrint,
     error: state.error,
     results: state.results,
-    extra: state.extra
+    extra: state.extra,
+    network: state.wifiConnection || {}
   }
 }
 
@@ -263,7 +248,10 @@ function mapDispatchToProps(dispatch) {
     onUnloadMaterial: () => PrinterActions.unloadMaterial(dispatch),
     onAutoHome: () => PrinterActions.autoHome(dispatch),
     onUpdate: () => UpdaterActions.update(dispatch),
-    onUpdateGcodes: () => UpdaterActions.updateGcodes(dispatch)
+    onUpdateGcodes: () => UpdaterActions.updateGcodes(dispatch),
+    onWifiScan: () => NetworkActions.scan(dispatch),
+    onNetworkConnect: (network, password) => NetworkActions.connect(network, password, dispatch),
+    onNetworkCheck: () => NetworkActions.check(dispatch)
   };
 }
 

@@ -1,18 +1,20 @@
 import React from 'react'
-import {minimalLayout} from '../KeyboardLayouts'
+import {lettersLayout, numandsymLayout, numandsymaltLayout} from '../KeyboardLayouts'
 
 var Keyboard = React.createClass({
+  getInitialState() {
+    return {uppercase: false, page: 0}
+  },
   _handleHover(key) {
-    // console.log(event);
-    // let str = event.target.value
     this.props.onKeyClick(key)
   },
   render() {
     if (!this.props.active) {
-      console.log('keyboard');
       return null
     }
-    let layout = minimalLayout
+    let layouts = [lettersLayout, numandsymLayout, numandsymaltLayout]
+    let layout = layouts[this.state.page]
+
     let kb = layout.map((row, index) => {
       let keys = row.map((key) => {
         if (key.indexOf('@@') != -1) {
@@ -24,8 +26,12 @@ var Keyboard = React.createClass({
         }
         return (
           <div key={key} className="button" onClick={() => {
-            this._handleHover(key)
-          }}>{key.toUpperCase()}</div>
+            this._handleHover(this.state.uppercase
+              ? key.toUpperCase()
+              : key.toLowerCase())
+          }}>{this.state.uppercase
+              ? key.toUpperCase()
+              : key}</div>
         )
       })
       return (
@@ -41,6 +47,20 @@ var Keyboard = React.createClass({
       <div className="keyboard">
         {kb}
         <div className="row">
+          <div className="shift" onClick={() => {
+            this.setState({
+              uppercase: !this.state.uppercase
+            })
+          }}>
+            {'SHIFT'}
+          </div>
+          <div className="symbols" onClick={() => {
+            this.setState({
+              page: (this.state.page + 1) % 3
+            })
+          }}>
+            {'!#&'}
+          </div>
           <div className="spacebar" onClick={() => {
             this._handleHover('@@spacebar')
           }}>{'SPAZIO'}</div>

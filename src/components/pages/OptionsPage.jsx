@@ -1,4 +1,5 @@
 import React from 'react'
+// import {version} from '../../package.json'
 
 var OptionsPage = React.createClass({
   _handleClickLoad() {
@@ -16,8 +17,10 @@ var OptionsPage = React.createClass({
   _handleClickUpdateGcodes(){
     this.props.onChangedOption({context: 'update', command: 'updateGcodes'})
   },
+  _handleCllickWifi(){
+    this.props.onChangedOption({context: 'network', command: 'show_page'})
+  },
   render() {
-    console.log(this.props.printerStatus);
     let buttonsPrinter = ''
     if(!this.props.printerStatus) buttonsPrinter = 'disabled'
     return (
@@ -36,11 +39,20 @@ var OptionsPage = React.createClass({
           <button className={buttonsPrinter} onClick={this._handleClickHome} disabled={!this.props.printerStatus}>{'Home'}</button>
         </div>
         <h3 className="opts">
+          {'Configurazione rete wifi'}
+        </h3>
+        <div className="buttons">
+          <button onClick={this._handleCllickWifi}>{'Configura'}</button>
+        </div>
+        <h3 className="opts">
           {'Aggiornamento'}
         </h3>
         <div className="buttons">
           <button onClick={this._handleClickUpdate}>{'Aggiorna Software'}</button>
           <button onClick={this._handleClickUpdateGcodes}>{'Aggiorna Libreria'}</button>
+        </div>
+        <div className="version">
+          {`ver. ${process.env.npm_package_version}`}
         </div>
       </div>
     )

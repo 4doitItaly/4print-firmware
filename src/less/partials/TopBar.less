@@ -27,22 +27,28 @@
     font-size: 20px;
   }
 
-  .date {
+  .right-components {
     width: 33%;
-  }
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
 
-  .options {
-    width: 33%;
+    .network {
+      padding-right: 10px;
+    }
 
-    span {
-      margin-right: 20px;
-      cursor: pointer;
-      background-color: #e6e6e6;
-      border-radius: 3px;
-      padding: 10px;
-      float: right;
-      border: 1px solid #cacaca;
-      box-shadow: rgba(0, 0, 0, 0.117647) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;
+    .options {
+      span {
+        margin-right: 20px;
+        cursor: pointer;
+        background-color: #e6e6e6;
+        border-radius: 3px;
+        padding: 10px;
+        float: right;
+        border: 1px solid #cacaca;
+        box-shadow: rgba(0, 0, 0, 0.117647) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;
+      }
     }
   }
 }

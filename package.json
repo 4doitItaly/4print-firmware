@@ -1,6 +1,6 @@
 {
-  "name": "cerca-stl",
-  "version": "0.2.0",
+  "name": "4print-firmware",
+  "version": "0.1.2",
   "description": "The interface of the 4print printer by 4doit",
   "main": "main.js",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/TinyTanic/CercaStl.git"
+    "url": "https://github.com/TinyTanic/4print-firmware.git"
   },
   "author": "Luca Aguzzoli",
   "license": "GPLv3",
@@ -20,6 +20,7 @@
     "bootstrap": "^3.3.7",
     "electron": "^1.4.2",
     "nedb": "^1.8.0",
+    "node-wifiscanner": "^0.2.1",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
     "react-redux": "^4.4.5",
